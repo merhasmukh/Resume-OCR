@@ -19,6 +19,7 @@ def main():
             
         elif choice=="Admin":
             pass
+            
         else:
             st.write("Select Your Choice")
     except Exception as e:
