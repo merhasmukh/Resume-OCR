@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+#
+resume_data
+/resume_data
+logs
+/logs
+
 # Distribution / packaging
 .Python
 build/

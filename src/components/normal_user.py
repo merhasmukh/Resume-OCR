@@ -1,5 +1,6 @@
 import streamlit as st
-from my_func import show_pdf
+from src.components import show_pdf
+from src.logger import logging
 import os
 
 def pdf_file():
@@ -14,6 +15,9 @@ def pdf_file():
                 f.write(pdf_file.getvalue())
             pdf_file_path=pdf_path+"/"+pdf_file.name
             show_pdf.display_pdf(pdf_file_path)
-     
+        else:
+
+            logging.info(" Pdf file not received")
+            st.error("please select pdf file only")
     except Exception as e:
-        st.write(str(e))
+        st.error(str(e))
