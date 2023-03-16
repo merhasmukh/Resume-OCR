@@ -11,6 +11,8 @@ resume_data
 /resume_data
 logs
 /logs
+data
+/data
 
 # Distribution / packaging
 .Python

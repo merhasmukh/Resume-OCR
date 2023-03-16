@@ -1,5 +1,6 @@
 import streamlit as st 
-from src.components import normal_user
+from src.components import normal_user,show_pdf
+from src.components import pdf_to_text
 from src.logger import logging
 
 st.set_page_config(
@@ -17,7 +18,10 @@ def main():
         choice = st.sidebar.selectbox("Choose among the given options:", activities)
         if choice=='Normal User':
             logging.info("Normal User Selected..!!")
-            normal_user.pdf_file()
+            pdf_file_name=normal_user.pdf_file()
+            all_data=pdf_to_text.PdfToText.pdf_miner(pdf_file_name)
+            if all_data is not None:
+                st.write(all_data)
             
         elif choice=="Admin":
             logging.info(" Admin Selected..!!")

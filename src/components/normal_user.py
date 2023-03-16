@@ -15,9 +15,7 @@ def pdf_file():
                 f.write(pdf_file.getvalue())
             pdf_file_path=pdf_path+"/"+pdf_file.name
             show_pdf.display_pdf(pdf_file_path)
-        else:
-
-            logging.info(" Pdf file not received")
-            st.error("please select pdf file only")
+            return pdf_file_path
+        
     except Exception as e:
         st.error(str(e))
