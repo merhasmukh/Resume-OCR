@@ -1,6 +1,6 @@
 import streamlit as st 
 from src.components import normal_user,show_pdf
-from src.components import pdf_to_text
+from src.components import pdf_to_text,pdf_to_images
 from src.logger import logging
 
 st.set_page_config(
@@ -18,8 +18,9 @@ def main():
         choice = st.sidebar.selectbox("Choose among the given options:", activities)
         if choice=='Normal User':
             logging.info("Normal User Selected..!!")
-            pdf_file_name=normal_user.pdf_file()
-            all_data=pdf_to_text.PdfToText.pdf_miner(pdf_file_name)
+            pdf_file_path,pdf_file_name=normal_user.pdf_file()
+            pdf_to_images.pdf_2_image(pdf_file_path,pdf_file_name)
+            all_data=pdf_to_text.PdfToText.pdf_miner(pdf_file_path)
             if all_data is not None:
                 st.write(all_data)
             

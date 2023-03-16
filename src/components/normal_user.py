@@ -14,8 +14,9 @@ def pdf_file():
             with open(pdf_path+"/"+pdf_file.name,'wb') as f:
                 f.write(pdf_file.getvalue())
             pdf_file_path=pdf_path+"/"+pdf_file.name
+            pdf_file_name=pdf_file.name
             show_pdf.display_pdf(pdf_file_path)
-            return pdf_file_path
+            return pdf_file_path,pdf_file_name
         
     except Exception as e:
         st.error(str(e))
