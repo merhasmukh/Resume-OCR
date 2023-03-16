@@ -21,16 +21,22 @@ def pdf_2_image(file,fname):
             try:
                
                 images[i].save("./resume_data/pdf_to_image/"+fname+"/"+'page'+ str(i) +'.jpg', 'JPEG')
+                image_path="./resume_data/pdf_to_image/"+fname+"/"
+
+        
             except FileNotFoundError as fne:
                 return {"error":str(fne)}
             except Exception as e:
                 return {"error":str(e)}
 
                   
-       
-
-
+        
         logging.info("PDF TO IMAGE CONVERTED SUCCESSFULLY....")
+        return image_path
+
+
+
+        
     except Exception as e:
         # log.log_fun(str(e))
         return {"error":"exception in pdf_2_image"}

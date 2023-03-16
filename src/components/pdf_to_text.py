@@ -61,6 +61,8 @@ class PdfToText:
                 converter.close()
                 fake_file_handle.close()
                 return text
+            else:
+                st.write("Select Your Pdf File")
             
         except Exception as e:
             return {"error":str(e)}
