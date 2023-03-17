@@ -1,8 +1,8 @@
 import easyocr
 import os
-
-# from src import utils
 import streamlit as st
+from src import utils
+
 class EasyOCR:
     def __init__(self):
         pass
@@ -17,8 +17,9 @@ class EasyOCR:
             # name=EasyOCR.get_name(result)
             # return {"name":name}
             return result
-        except:
-            st.error("Error in extract text from image")
+        except Exception as e:
+            st.error("error in extract_all_text"+ " " + str(e))
+            
 
 
     def get_text_region_pixel(image_path):
@@ -29,17 +30,50 @@ class EasyOCR:
             pixels=result[3]
             print(result[3])
             return pixels
-        except:
-            pass
+        except Exception as e:
+            st.error("error in get_text_region_pixel" + " " + str(e))
+
 
     def get_name(all_text_list):
         try:
             texl_list=all_text_list
-            name=texl_list[0][1]
+            name=texl_list[0]
             return name
-        except:
-            pass
+        except Exception as e:
+            st.error("error in get_name" + " " + str(e))
 
 
-obj=EasyOCR()
-obj.extract_all_text("./resume_data/pdf_to_image/HASMUKH_RESUME/page1.jpg")
+    def get_mail(all_text_list):
+        try:
+            email=''
+            for text in all_text_list:
+                if "@" in text:
+                    text_list=text.split()
+                    for j in text_list:
+                        if "@" in j:
+                            email=j
+
+            return email
+
+        except Exception as e:
+            st.error("error in get_mail" + " " + str(e))
+
+
+    def get_number(all_text_list):
+        try:
+            number=''
+            all_digit_list=[]
+            for i in all_text_list:
+                i_list=i.split()
+                for j in i_list:
+                    if j.isdigit():
+                        all_digit_list.append(j)
+
+            
+            for num in all_digit_list:
+                if len(str(num))>=10:
+                    number=str(num)
+
+            return number
+        except Exception as e:
+            st.error("error in get_number" + " " + str(e))
