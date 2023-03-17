@@ -23,6 +23,7 @@ def getTime():
     
 def create_txt_file(filename,text):
     try:
+        print("text",text)
         if os.path.exists(filename+".txt"):
             with open(filename+".txt","a") as fb:
                 for line in text:
@@ -35,7 +36,7 @@ def create_txt_file(filename,text):
                 fb.close()
 
     except Exception as e:
-        st.error("error in  create_txt_file")
+        st.error("error in  create_txt_file"+str(e))
 
 
 # print(getDate())

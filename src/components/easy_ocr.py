@@ -1,8 +1,8 @@
 import easyocr
 import os
 
-from src import utils
-
+# from src import utils
+import streamlit as st
 class EasyOCR:
     def __init__(self):
         pass
@@ -18,7 +18,7 @@ class EasyOCR:
             # return {"name":name}
             return result
         except:
-            pass
+            st.error("Error in extract text from image")
 
 
     def get_text_region_pixel(image_path):
@@ -39,3 +39,7 @@ class EasyOCR:
             return name
         except:
             pass
+
+
+obj=EasyOCR()
+obj.extract_all_text("./resume_data/pdf_to_image/HASMUKH_RESUME/page1.jpg")
