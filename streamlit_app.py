@@ -1,5 +1,5 @@
 import streamlit as st 
-from src.utils import getDate,getTime,create_txt_file
+from src.utils import getDate,getTime,create_txt_file,delete_file,read_txt_file
 from src.components import normal_user
 from src.components import pdf_to_text,pdf_to_images,name_extract,email_extract,num_extract
 from src.components import easy_ocr
@@ -45,18 +45,28 @@ def main():
             image_dir=pdf_to_images.pdf_2_image(pdf_file_path,pdf_file_name)
 
             print(image_dir)
-            for img in os.listdir(image_dir):
-                print("img>>>",img)
+            for i in range(len(os.listdir(image_dir))):
+                print("img>>>",i)
                 file_name=pdf_file_name.replace(".pdf","")
-                image_path=os.path.join("./resume_data/pdf_to_image/"+file_name,img)
+                image_path=os.path.join("resume_data","pdf_to_image",file_name,"page"+str(i)+".jpg")
                 print("image path",image_path)
                 text_list=easy_ocr.EasyOCR.extract_all_text(image_path)
-                create_txt_file("./resume_data/pdf_to_image/"+file_name,text=text_list)
+                delete_file(image_path)
+
+                text_file_path=os.path.join("resume_data","pdf_to_image",file_name+".txt")
+                print("text_file_path",text_file_path)
+                create_txt_file(text_file_path,text=text_list)
 
                 # all_text_list=all_text_list.append(text_list)
                 
                 # break
-            # st.write(all_text_list)
+            all_text_list=read_txt_file(text_file_path)
+            name=easy_ocr.EasyOCR.get_name(all_text_list)
+            email=easy_ocr.EasyOCR.get_mail(all_text_list)
+            number=easy_ocr.EasyOCR.get_number(all_text_list)
+
+            delete_file(text_file_path)
+            st.write({"name":name,"email":email,"number":number})
 
 
         elif choice=="Admin":
